@@ -1,5 +1,23 @@
 img
 {
-    height: 300px;
+    height: 250px;
     position: absolute;
+    padding: 15px;
+    padding-bottom: 50px;
+    box-shadow: 0px 0px 20px #888888;
+    border: 1px solid gray;
+    background-color: white;
+}
+
+.toolbar
+{
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+body
+{
+    font-family: Helvetica, Arial, sans-serif;
 }

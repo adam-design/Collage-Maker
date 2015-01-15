@@ -1,6 +1,9 @@
 // this variable will hold whichever object is currently being dragged
 var currentlyDragging;
 
+// this variable holds the curent mode (0=move, 1=resize, 2=rotate)
+var mode;
+
 // run this code when fully loaded
 $(window).load(function () {
     
@@ -10,8 +13,11 @@ $(window).load(function () {
     // attach the mousemove event to all image tags
     $("img").mousemove(whileDragging);
     
-    // attach the mousedown event to all image tags
+    // attach the mouseup event to all image tags
     $("img").mouseup(doneDragging);
+    
+    // attach the onchange event to the dropdown toolchooser
+    $("#toolchooser").change(changeMode);
     
 });
 
@@ -40,4 +46,18 @@ function doneDragging(e)
 {
     // unset the image that's being dragged
     currentlyDragging = null;
+}
+
+
+// the following function is called when the mode changes
+
+function changeMode()
+{
+    // get the index (0 through 2 of the selection
+    var selectedIndex = $(this)[0].selectedIndex;
+    
+    alert("Mode changed: "+selectedIndex);
+    
+    // update the global mode variable
+    mode = selectedIndex;
 }
