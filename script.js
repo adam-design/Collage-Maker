@@ -13,10 +13,10 @@ $(window).load(function () {
     // attach the mousedown event to all image tags
     $("img").mousedown(startDragging);
     
-    // attach the mousemove event to all image tags
-    $("img").mousemove(whileDragging);
+    // attach the mousemove event to the body
+    $("body").mousemove(whileDragging);
     
-    // attach the mouseup event to all image tags
+    // attach the mouseup event to the body
     $("body").mouseup(doneDragging);
     
     // attach the onchange event to the dropdown toolchooser
@@ -31,6 +31,9 @@ function startDragging(e)
     // set this image as the current one to be dragged
     currentlyDragging = $(this);
     
+    // set the degrees for this object if it isn't already set, to 0
+    if (!currentlyDragging[0].degree)
+        currentlyDragging[0].degree = 0;
 }
 
 function whileDragging(e)
@@ -67,6 +70,23 @@ function whileDragging(e)
             currentlyDragging.css({height: '+=10%', width: '+=10%'})
         }
         
+        // update old Y for the next call to currentlyDragging
+        oldY = e.pageY;
+    }
+    // mode 2, rotate
+    else if (mode == 2)
+    {
+        // for rotating, going up rotates counterclockwise, and going down rotates clockise
+        
+        if (e.pageY > oldY)
+            currentlyDragging[0].degree += 1;
+           
+        else if (e.pageY < oldY)
+            currentlyDragging[0].degree -= 1
+            
+         // dragged down, make it smaller
+        currentlyDragging.css("transform", 'rotate(' + currentlyDragging[0].degree + 'deg)');
+            
         // update old Y for the next call to currentlyDragging
         oldY = e.pageY;
     }
