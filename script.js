@@ -7,6 +7,9 @@ var mode = 0;
 // these variables stores the old y position of the cursor (it is updated in whileDragging)
 var oldY;
 
+// keep track of the highest z-index so far
+var maxZ = 0;
+
 // run this code when fully loaded
 $(window).load(function () {
     
@@ -34,6 +37,14 @@ function startDragging(e)
     // set the degrees for this object if it isn't already set, to 0
     if (!currentlyDragging[0].degree)
         currentlyDragging[0].degree = 0;
+    
+    // mode 3, bring to front
+    if (mode == 3)
+    {
+        // this mode will set the clicked on element's z-index to the front so far, and then increment the max z-index for next time
+        currentlyDragging.css("z-index", maxZ);
+        maxZ ++;
+    }
 }
 
 function whileDragging(e)
