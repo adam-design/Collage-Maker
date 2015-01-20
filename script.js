@@ -8,7 +8,7 @@ var mode = 0;
 var oldY;
 
 // keep track of the highest z-index so far
-var maxZ = 0;
+var maxZ = 1;
 
 // run this code when fully loaded
 $(window).load(function () {
@@ -44,6 +44,13 @@ function startDragging(e)
         // this mode will set the clicked on element's z-index to the front so far, and then increment the max z-index for next time
         currentlyDragging.css("z-index", maxZ);
         maxZ ++;
+    }
+    
+    // mode 4, delete
+    else if (mode == 4)
+    {
+        // delete the curent element
+            currentlyDragging[0].parentElement.removeChild(currentlyDragging[0]);
     }
 }
 
@@ -120,3 +127,63 @@ function changeMode()
     // update the global mode variable
     mode = selectedIndex;
 }
+
+if(window.FileReader) { 
+  window.addEventListener('load', function() {
+
+    function cancel(e) {
+      if (e.preventDefault) { e.preventDefault(); }
+      return false;
+    }
+  
+    // Tells the browser that we *can* drop on this target
+    document.body.addEventListener('dragover', cancel, false);
+    document.body.addEventListener('dragenter', cancel, false);
+      
+    document.body.addEventListener('drop', droppedImage, false);
+  }, false);
+} else { 
+  document.getElementById('status').innerHTML = 'Your browser does not support the HTML5 FileReader.';
+}
+
+function droppedImage(e)
+{
+    e.preventDefault();
+    var dt    = e.dataTransfer;
+  var files = dt.files;
+  for (var i=0; i<files.length; i++) {
+    var file = files[i];
+    var reader = new FileReader();
+      
+    //attach event handlers here...
+    reader.readAsDataURL(file);
+      
+    reader.addEventListener('loadend', function(e, file) {
+    var bin           = this.result; 
+    var img = document.createElement("img"); 
+    img.file = file;   
+    img.src = bin;
+    document.body.appendChild(img);
+        
+    $(img).attr("draggable", "false");
+        
+    // attach the mousedown event to all image tags
+    $(img).mousedown(startDragging);
+   
+        
+}.bindToEventHandler(file), false);
+  }
+    
+    return false;
+}
+
+Function.prototype.bindToEventHandler = function bindToEventHandler() {
+  var handler = this;
+  var boundParameters = Array.prototype.slice.call(arguments);
+  //create closure
+  return function(e) {
+      e = e || window.event; // get window.event if e argument missing (in IE)   
+      boundParameters.unshift(e);
+      handler.apply(this, boundParameters);
+  }
+};
