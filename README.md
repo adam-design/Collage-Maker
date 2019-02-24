@@ -1,9 +1,9 @@
-# [Collage-Maker](http://adam-design.com/Collage-Maker)
+# [Collage-Maker](https://adam-design.github.io/Collage-Maker/)
 ![Collage](http://i.imgur.com/tqGEyka.jpg)
 Import and arrange images as desired to create a collage in the browser!
 
 ## Try it Out!
-[Click here](http://adam-design.com/Collage-Maker) to view Collage Maker on my personal website! You can import your own images
+[Click here](https://adam-design.github.io/Collage-Maker/) to view Collage Maker on my personal website! You can import your own images
 
 ## Technology
 Collage Maker uses Javascript, JQuery, and CSS to make a clean and straightforward interface for creating image collages in the browser. It gives the user complete control over all aspects on the images and where to place them, and even applies a nice Polaroid-style border around them.
